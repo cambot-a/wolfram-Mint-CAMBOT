@@ -1,3 +1,57 @@
+# Binaries
+
+
+# Debug / test objects and coverage data
+
+# Compiled Object files
+
+# Debugger Files
+
+# Compiled Dynamic libraries
+
+# Executables
+
+# Build directories
+build/
+Build/
+build-*/
+
+# CMake generated files
+CMakeFiles/
+CMakeCache.txt
+cmake_install.cmake
+install_manifest.txt
+compile_commands.json
+compile_commands.events.json
+
+# Makefile
+
+# Temporary files
+tmp/
+*.tmp
+*.log
+*.bak
+*.swp
+
+# package manager
+
+# debug information files
+
+# test output & cache
+Testing/
+.cache/
+.coverage.txt
+
+# Claude context and files
+/CLAUDE.md
+*_review.md
+
+# generated docs
+
+# developper files
+TODO.md
+
+#haskell
 dist
 dist-*
 cabal-dev
