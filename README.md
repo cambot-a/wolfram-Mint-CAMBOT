@@ -75,20 +75,6 @@ docs/
 src/
   Shared/       project agnostic srcs
   PROJECT_NAME/ project srcs
-tests/
-
-
-
-include/            headers (included as "Server/Server.hpp", "StdEpitech.hpp", ...)
-  Exceptions/       exception types
-  Shared/           project agnostic headers
-  PROJECT_NAME/     PROJECT_NAME specific file
-src/
-  *.cpp             code shared by both binaries
-  Server/           server sources and main
-  Client/           client sources and main
-config/             example quiz files
-libs/               third-party / static libraries
 tests/              unit and functional tests
 ```
 
