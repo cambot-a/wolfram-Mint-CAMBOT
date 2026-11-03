@@ -1,6 +1,6 @@
-# haskell_free_project
+# PROJECT_NAME
 
-a free project coded in haskell (no subject yet)
+// short description of the project
 
 ## Description
 
@@ -26,8 +26,8 @@ Running `make` builds // fill
 ### Installing
 
 ```sh
-git clone git@github.com:cambot-a/haskell_free_project.git
-cd haskell_free_project
+git clone git@github.com:cambot-a/PROJECT_NAME.git
+cd PROJECT_NAME
 ```
 
 ### Building
@@ -105,7 +105,6 @@ the TESTS section at the footer of this page lists every behaviour the tests mus
 | Milestone | Days | Content |
 |---|---|---|
 // fill
-| — | 19–21 | quality assurance and bonuses |
 
 ### AI usage
 
@@ -117,9 +116,8 @@ No issues reported yet.
 
 ## Authors
 
-Armand Cambot
+nor_ant
 GitHub: [@cambot-a](https://github.com/cambot-a)
-LinkedIn: [@Armand Cambot](https://www.linkedin.com/in/armand-cambot-epitech-developper/)
 
 ## Version History
 

@@ -18,7 +18,7 @@ MAKE	=	make
 
 #             ~~~~~~~~~~~~~~~~~~~~~ bin name(s) ~~~~~~~~~~~~~~~~~~~~            
 
-BIN	=	epikh_server
+BIN	=	FILL_BINARY_NAME
 
 ## ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ RECIPES ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
@@ -29,15 +29,15 @@ re: fclean all
 #             ~~~~~~~~~~~~~~~~~~~~~~~~ clean ~~~~~~~~~~~~~~~~~~~~~~~            
 
 mostlyclean:	# Like 'clean', but refrains from deleting a few files that
-#				  people normally don’t want to recompile.
+#				  people normally don't want to recompile.
 
 clean: mostlyclean
 
-fclean: clean docs_fclean debug_fclean
+fclean: clean
 
-#             ~~~~~~~~~~~~~~~~~~~~~~~~ binary ~~~~~~~~~~~~~~~~~~~~~~~            
+#             ~~~~~~~~~~~~~~~~~~~~~~~~ binary ~~~~~~~~~~~~~~~~~~~~~~~
 
-$(SERVER_BIN):
+$(BIN):
 
 #             ~~~~~~~~~~~~~~~~~~~ special targets ~~~~~~~~~~~~~~~~~~            
 
