@@ -1,7 +1,8 @@
 module Main (main) where
 
 import WolframConfig
-import showWolfram
+import ShowWolfram
+import System.Environment
 
 main :: IO ()
-main = getArgs >>= WolframConfig defaultConf >>= showWolfram
+main = getOpts defaultConf <$> getArgs >>= showWolfram
