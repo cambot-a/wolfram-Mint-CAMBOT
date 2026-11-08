@@ -69,7 +69,6 @@ cabal.sandbox.config
 *.aux
 *.hp
 *.eventlog
-.stack-work/
 cabal.project.local
 cabal.project.local~
 .HTF/
@@ -78,3 +77,6 @@ cabal.project.local~
 #epitech common files
 caca*
 
+#stack
+.stack-work/
+*~
