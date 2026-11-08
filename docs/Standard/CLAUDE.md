@@ -455,14 +455,14 @@ No real node names, types, dependencies or descriptions.
 │   ├── Shared/             code shared across projects, may become its own
 │   │                       module later
 │   └── <ProjectName>/      the project's code
-├── tests/                  unit and functional tests (tester TBD, see 9)
+├── test/                   unit and functional tests (tester TBD, see 9)
 └── tmp/                    local experiments, gitignored, never committed
 ```
 
 Rules:
 -   Files and folders are named in UpperCamelCase, in English (O4):
     `src/Shared`, `src/<ProjectName>`... Conventional root folders (`src`,
-    `tests`, `docs`, `config`, `tmp`) stay lowercase.
+    `test`, `docs`, `config`, `tmp`) stay lowercase.
 -   A file is named after its module (O4); the file holding `main` may be
     named after the executable, in lowercase.
 -   New source files under `src/Shared/` and `src/<ProjectName>/` are picked
@@ -663,7 +663,7 @@ come on top of them, are listed separately (8.3). lambdananas checks them;
 hlint and fourmolu go further (see 6).
 
 General points from the PDF:
--   It applies to every source file, except those in `test/`, `tests/` and
+-   It applies to every source file, except those in `test/` and
     `bonus/`.
 -   Three severity levels: major, minor, info. Rules not written in the PDF
     ("implicit rules") count as info.
@@ -798,7 +798,7 @@ C3: cite C4 and C5.
 -   `-- TODO(cambot-a):` + the unfinished-code marker (TBD, see 1.1)
     (+ `-- STUB-FEATURE`) in stubs, removed before production.
 -   Tests follow the same style as the sources, even though the official
-    style exempts `tests/`.
+    style exempts `test/`.
 
 ### 8.4 Exit codes and errors
 

@@ -11,7 +11,7 @@
 #	app/ holds the main, src/ the rest of the code
 APP_DIR	=	app
 SRC_DIR	=	src
-#	every Haskell file checked by the linters (tests/ and tmp/ left out)
+#	every Haskell file checked by the linters (test/ and tmp/ left out)
 HS_SRC	=	$(sort $(shell find $(APP_DIR) $(SRC_DIR) -type f -name '*.hs' \
 		2>/dev/null))
 

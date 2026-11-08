@@ -115,7 +115,7 @@ docs/
 src/
   Shared/       project agnostic srcs
   Wolfram/      project srcs
-tests/              unit and functional tests
+test/              unit and functional tests
 ```
 
 New src files under src/Shared and src/Wolfram are picked up automatically
