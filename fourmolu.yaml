@@ -1,0 +1,114 @@
+##
+## EPITECH PROJECT, 2026
+## fourmolu.yaml
+## File description:
+## Arcamb's default fourmolu config file! !^o.o^!
+##
+
+#   fourmolu 0.21.0.0. Every option of `fourmolu --print-defaults` is listed,
+#   so any of them can be edited here. Options that differ from fourmolu's
+#   defaults are marked "CHANGED", with the default and the reason.
+
+# ~~~~~ indentation and line length ~~~~~
+
+#   spaces per indentation step
+indentation: 4
+
+#   CHANGED (default: none): max line length for automatic line breaking.
+#   Epitech F3: lines are less than 80 characters long.
+column-limit: 79
+
+# ~~~~~ type signatures ~~~~~
+
+#   arrows in multi-line signatures: trailing, leading or leading-args
+function-arrows: trailing
+
+#   parentheses around a single constraint: auto, always or never
+single-constraint-parens: always
+
+#   CHANGED (default: false): sort constraints, one canonical order
+sort-constraints: true
+
+# ~~~~~ data types and deriving ~~~~~
+
+#   braces in records: aligned or knr
+record-style: aligned
+
+#   space before an opening record brace
+record-brace-space: false
+
+#   parentheses around a single derived class: auto, always or never
+single-deriving-parens: always
+
+#   CHANGED (default: false): sort the classes of a deriving clause
+sort-derived-classes: true
+
+#   CHANGED (default: false): sort the deriving clauses themselves
+sort-deriving-clauses: true
+
+# ~~~~~ lists, records and commas ~~~~~
+
+#   commas in multi-line lists, records, etc.: leading or trailing
+comma-style: leading
+
+# ~~~~~ imports and exports ~~~~~
+
+#   import/export lists: leading, trailing or diff-friendly
+import-export-style: diff-friendly
+
+#   how import declarations are grouped
+import-grouping: legacy
+
+#   modules defined by this package, used by import-grouping
+local-modules: []
+
+#   module reexports fourmolu should know about
+reexports: []
+
+# ~~~~~ where, let, in, if ~~~~~
+
+#   full-indent (true) or half-indent (false) 'where' past the body
+indent-wheres: false
+
+#   let blocks: auto, inline, newline or mixed
+let-style: auto
+
+#   'in' relative to 'let': left-align, right-align or no-space
+in-style: right-align
+
+#   if-statements: indented or hanging
+if-style: indented
+
+# ~~~~~ operators ~~~~~
+
+#   section operators (infixr 0, such as $) in trailing position
+trailing-section-operators: true
+
+#   fixity information for custom operators
+fixities: []
+
+# ~~~~~ blank lines ~~~~~
+
+#   blank lines between top-level declarations
+newlines-between-decls: 1
+
+#   CHANGED (default: true): when true, fourmolu keeps some of the author's
+#   own layout choices (blank lines...). false leaves none.
+respectful: false
+
+# ~~~~~ documentation comments ~~~~~
+
+#   Haddock comments: single-line, multi-line, multi-line-compact or auto
+haddock-style: multi-line
+
+#   module docstring style (null: same as haddock-style)
+haddock-style-module: null
+
+#   docstrings in signatures: auto, leading or trailing
+haddock-location-signature: auto
+
+# ~~~~~ unicode ~~~~~
+
+#   unicode syntax: detect, always or never. Keep never: unicode syntax needs
+#   the UnicodeSyntax extension (Epitech E1 forbids extensions).
+unicode: never

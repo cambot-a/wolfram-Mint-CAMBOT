@@ -1,0 +1,172 @@
+##
+## EPITECH PROJECT, 2026
+## .hlint.yaml
+## File description:
+## Arcamb's default hlint config file! !^o.o^!
+##
+
+#   hlint 3.10. Goal: as strict as possible without colliding with the
+#   Epitech Haskell Coding Style (docs/Standard/Style/).
+#   Every hint hlint prints makes `hlint` exit with 1, suggestions included,
+#   so every hint fails `make hlint` and `make standard`.
+#   Each forbidden item is on its own line: comment it out to allow it again.
+
+# ~~~~~ optional hint groups ~~~~~
+
+#   map -> fmap, ++ -> <>, ...
+- group: {name: generalise, enabled: true}
+#   maybe False -> any, fromMaybe mempty -> fold, ...
+- group: {name: generalise-for-conciseness, enabled: true}
+#   a $ b $ c -> a . b $ c
+- group: {name: dollar, enabled: true}
+#   return -> pure
+- group: {name: future, enabled: true}
+#   if c then f x else f y -> f (if c then x else y)
+- group: {name: monomorphic, enabled: true}
+#   De Morgan, folds, list comprehensions -> map/filter
+- group: {name: teaching, enabled: true}
+
+#   Not enabled:
+#   -   partial, partial-strict: replaced by the per-function list of
+#       "partial functions" below, so that each one can be allowed alone;
+#   -   extra: suggests functions of the `extra` library (only `base` is
+#       allowed by the subject);
+#   -   use-lens: suggests the `lens` library;
+#   -   use-th-quotes: needs TemplateHaskell (E1);
+#   -   codeworld: hints for the codeworld library;
+#   -   testing: internal to hlint's own tests.
+
+# ~~~~~ builtin hints turned on ~~~~~
+
+#   Epitech O5: every module declares its exports explicitly.
+#   `module X where` (no export list at all)
+- warn: {name: Use module export list}
+#   `module X (module X) where` (exports everything)
+- warn: {name: Use explicit module export list}
+
+#   Backs Epitech F4 (body of 10 lines or less). Stricter than F4: hlint
+#   counts every clause of a function together, F4 counts each one alone.
+- smell: {type: long functions, limit: 10}
+
+# ~~~~~ restrictions: extensions and flags ~~~~~
+
+#   Epitech E1: every language extension is forbidden.
+- extensions:
+  - default: false
+
+#   No OPTIONS_GHC pragma (not an Epitech rule: it could be used to get
+#   around compiler checks).
+- flags:
+  - default: false
+
+# ~~~~~ restrictions: modules ~~~~~
+
+- modules:
+  #   Epitech M1/M3: mutable variables
+  - {name: Data.IORef, within: [], message: "M1/M3 #0: mutable variable"}
+  - {name: Data.STRef, within: [], message: "M1/M3 #1: mutable variable"}
+  - {name: Data.STRef.Lazy, within: [], message: "M1 #2: mutable variable"}
+  - {name: Data.STRef.Strict, within: [], message: "M1 #3: mutable variable"}
+  - {name: Control.Concurrent.STM.TVar, within: [], message: "M1/M3 #4:"}
+  - {name: Control.Concurrent.MVar, within: [], message: "M1 #5: mutable variable"}
+  - {name: GHC.IORef, within: [], message: "M1 #6: mutable variable"}
+  - {name: GHC.STRef, within: [], message: "M1 #7: mutable variable"}
+  #   Epitech M2/M3: unsafe operations
+  - {name: System.IO.Unsafe, within: [], message: "M2/M3 #8: unsafe module"}
+  - {name: GHC.IO.Unsafe, within: [], message: "M2 #9: unsafe module"}
+  - {name: Control.Monad.ST.Unsafe, within: [], message: "M2 #10: unsafe module"}
+  - {name: Unsafe.Coerce, within: [], message: "M2 #11: unsafe module"}
+  #   Debug.Trace prints from pure code through unsafePerformIO (M2)
+  - {name: Debug.Trace, within: [], message: "M2 #12: impure debug output"}
+
+# ~~~~~ restrictions: functions ~~~~~
+
+- functions:
+  #   M2: unsafe functions
+  - {name: unsafePerformIO, within: [], message: "M2 #13: unsafe function"}
+  - {name: unsafeDupablePerformIO, within: [], message: "M2 #14: unsafe function"}
+  - {name: unsafeInterleaveIO, within: [], message: "M2 #15: unsafe function"}
+  - {name: unsafeDupableInterleaveIO, within: [], message: "M2 #16: unsafe"}
+  - {name: unsafeFixIO, within: [], message: "M2 #17: unsafe function"}
+  - {name: unsafeCoerce, within: [], message: "M2 #18: unsafe function"}
+  - {name: unsafeInterleaveST, within: [], message: "M2 #19: unsafe function"}
+  - {name: unsafeIOToST, within: [], message: "M2 #20: unsafe function"}
+  - {name: unsafeSTToIO, within: [], message: "M2 #21: unsafe function"}
+
+  #   Partial functions: they crash at runtime with exit code 1, not 84.
+  #   Not an Epitech rule. Comment a line out to allow that function.
+  #   -- crash on purpose --
+  - {name: error, within: [], message: "partial #22: exits with 1"}
+  - {name: errorWithoutStackTrace, within: [], message: "partial #23: exits with 1"}
+  - {name: undefined, within: [], message: "partial #24: exits with 1"}
+  #   -- Prelude / Data.List --
+  - {name: head, within: [], message: "partial #25: fails on []"}
+  - {name: tail, within: [], message: "partial #26: fails on []"}
+  - {name: last, within: [], message: "partial #27: fails on []"}
+  - {name: init, within: [], message: "partial #28: fails on []"}
+  - {name: "!!", within: [], message: "partial #29: fails out of range"}
+  - {name: cycle, within: [], message: "partial #30: fails on []"}
+  - {name: read, within: [], message: "partial #31: use readMaybe"}
+  #   -- Data.Maybe --
+  - {name: fromJust, within: [], message: "partial #32: fails on Nothing"}
+  #   -- Data.List.NonEmpty --
+  - {name: Data.List.NonEmpty.fromList, within: [], message: "partial #33:"}
+  #   -- Data.Foldable --
+  - {name: foldr1, within: [], message: "partial #34: fails on empty"}
+  - {name: foldl1, within: [], message: "partial #35: fails on empty"}
+  - {name: maximum, within: [], message: "partial #36: fails on empty"}
+  - {name: minimum, within: [], message: "partial #37: fails on empty"}
+  - {name: maximumBy, within: [], message: "partial #38: fails on empty"}
+  - {name: minimumBy, within: [], message: "partial #39: fails on empty"}
+  #   -- Data.Bifoldable --
+  - {name: bifoldr1, within: [], message: "partial #40: fails on empty"}
+  - {name: bifoldl1, within: [], message: "partial #41: fails on empty"}
+  - {name: bimaximum, within: [], message: "partial #42: fails on empty"}
+  - {name: biminimum, within: [], message: "partial #43: fails on empty"}
+  - {name: bimaximumBy, within: [], message: "partial #44: fails on empty"}
+  - {name: biminimumBy, within: [], message: "partial #45: fails on empty"}
+  #   -- Data.Bits --
+  - {name: bitSize, within: [], message: "partial #46: use bitSizeMaybe"}
+  - {name: shiftL, within: [], message: "partial #47: negative shift"}
+  - {name: shiftR, within: [], message: "partial #48: negative shift"}
+  - {name: unsafeShiftL, within: [], message: "partial #49: negative shift"}
+  - {name: unsafeShiftR, within: [], message: "partial #50: negative shift"}
+  - {name: rotateL, within: [], message: "partial #51: negative rotation"}
+  - {name: rotateR, within: [], message: "partial #52: negative rotation"}
+  #   -- Data.Char --
+  - {name: digitToInt, within: [], message: "partial #53: fails on a non-digit"}
+  - {name: intToDigit, within: [], message: "partial #54: fails out of 0..15"}
+  #   -- Enum (Prelude) --
+  - {name: succ, within: [], message: "partial #55: fails on maxBound"}
+  - {name: pred, within: [], message: "partial #56: fails on minBound"}
+  - {name: toEnum, within: [], message: "partial #57: fails out of range"}
+  - {name: fromEnum, within: [], message: "partial #58: fails out of range"}
+  #   -- Integral (Prelude) --
+  - {name: div, within: [], message: "partial #59: division by 0"}
+  - {name: mod, within: [], message: "partial #60: division by 0"}
+  - {name: quot, within: [], message: "partial #61: division by 0"}
+  - {name: rem, within: [], message: "partial #62: division by 0"}
+  - {name: divMod, within: [], message: "partial #63: division by 0"}
+  - {name: quotRem, within: [], message: "partial #64: division by 0"}
+  #   -- Data.Fixed --
+  - {name: "div'", within: [], message: "partial #65: division by 0"}
+  - {name: "mod'", within: [], message: "partial #66: division by 0"}
+  - {name: "divMod'", within: [], message: "partial #67: division by 0"}
+  #   -- Data.Ratio --
+  - {name: "%", within: [], message: "partial #68: division by 0"}
+
+# ~~~~~ hints turned off: collisions with the Epitech style ~~~~~
+
+#   E1: these suggest code that needs a language extension
+- ignore: {name: Use lambda-case}
+- ignore: {name: Use tuple-section}
+- ignore: {name: Use map with tuple-section}
+- ignore: {name: Use underscore}
+- ignore: {name: Use DerivingStrategies}
+
+#   C5: turns pattern matching on a Bool (case) into an if
+- ignore: {name: Use if}
+
+#   lts-16.16 ships base-4.14: these suggest functions added later
+#   Data.Functor.unzip: base-4.19
+- ignore: {name: Avoid NonEmpty.unzip}
