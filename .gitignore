@@ -38,7 +38,6 @@ tmp/
 # debug information files
 
 # test output & cache
-Testing/
 .cache/
 .coverage.txt
 
@@ -75,3 +74,7 @@ cabal.project.local
 cabal.project.local~
 .HTF/
 .ghc.environment.*
+
+#epitech common files
+caca*
+
