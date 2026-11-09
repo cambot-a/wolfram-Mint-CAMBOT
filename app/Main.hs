@@ -5,4 +5,4 @@ import ShowWolfram
 import System.Environment
 
 main :: IO ()
-main = getOpts defaultConf <$> getArgs >>= showWolfram
+main = getOpts <$> getArgs >>= showWolfram
