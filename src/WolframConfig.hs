@@ -35,13 +35,13 @@ defaultConf :: DefaultConfig
 defaultConf = DefaultConfig {
   confRule=Nothing,
   confStart=0,
-  confLines=Nothing,
+  confLines=-1,
   confWindow=80,
   confMove=Nothing
   }
 
 defaultToFinalConfig :: DefaultConfig -> Maybe WolframConfig
-defaultToFinalConfig (DefaultConfig (Just r) s (Just l) w (Just m)) =
+defaultToFinalConfig (DefaultConfig (Just r) s l w (Just m)) =
   Just (WolframConfig r s l w m)
 defaultToFinalConfig _ = Nothing
 
