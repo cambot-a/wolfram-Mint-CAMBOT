@@ -14,6 +14,7 @@ SRC_DIR	=	src
 #	every Haskell file checked by the linters (test/ and tmp/ left out)
 HS_SRC	=	$(sort $(shell find $(APP_DIR) $(SRC_DIR) -type f -name '*.hs' \
 		2>/dev/null))
+STACK_BIN_PATH	=	$(shell stack path --local-install-root)/bin/$(BIN)
 
 #             ~~~~~~~~~~~~ conventionnal makefile flags ~~~~~~~~~~~~     
 
@@ -66,10 +67,13 @@ mostlyclean:	# Like 'clean', but refrains from deleting a few files that
 clean: mostlyclean
 
 fclean: clean
+	rm $(BIN)
 
 #             ~~~~~~~~~~~~~~~~~~~~~~~~ binary ~~~~~~~~~~~~~~~~~~~~~~~           
 
 $(BIN):
+	stack build
+	cp $(STACK_BIN_PATH) ./
 
 #             ~~~~~~~~~~~~~~~~~~ standard checkers ~~~~~~~~~~~~~~~~~            
 #	Each one prints its full report and fails when it finds a violation.
