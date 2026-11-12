@@ -2,68 +2,97 @@
 %% EPITECH PROJECT, 2026
 %% wolframDFD.mermaid
 %% File description:
-%% the program's dfd
+%% describes how wolfram transforms data through its execution using the DFD
+%% format (Data Flow Diagram) with mermaid
 %%
+
+%% # wolfram Data Flow Diagram aka DFD :
+%% 
+%% ## Legend
+%% The goal of this document is to lay out a program's variable construction as
+%% extensively as possible by representing how data is transformed in the code.
+%% Since this is only broad clarification, some data/processes are irrelevant to
+%% it, usually things that are being left out are items out of the scope of the
+%% main data transform, like sub features.
+%% This document is read as an ordered list of Nodes that each represent a
+%% variable and its origins in a vertical graph fashion.
 
 flowchart TD
 
-%% %%%%%%%%%%%% cli parse block %%%%%%%%%%%%
+ORIGIN{ORIGIN}
+ORIGIN --> getOpts
 
-subgraph cli_parse
-  IO --> getOpts{getOpts :: List String} --> args[List String args]
-  args --> getArgs{getArgs -> List String -> WolframConfig}
-end
+subgraph cli_parse %%%%%%%%%%%%%%%%%%%%%%%%%% pre-print_generation
 
-getArgs --> WolframConfig 
+args[List String : Args]
+  %% deps:
+  %% trans:
+  getOpts{getOpts :: List String} --> args
+  %% brief: the program's arguments
+  %% docstring: the program's arguments
+%% /args[List String Args]
 
-subgraph WolframConfig
+end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% /pre-print_generation
+
+subgraph wolframConfig[WolframConfig : wolframConfig]
   wlfRule[wlfRule :: Int]
   wlfStart[wlfStart :: Int]
   wlfLines[wlfLines :: Int]
   wlfWindow[wlfWindow :: Int]
   wlfMove[wlfMove :: Int]
-end
+end %% /wolframConfig
+  %% deps: args
+  %% trans:
+  args --> getArgs{getArgs -> List String -> WolframConfig} --> wolframConfig
+  %% brief: the program's args in a struct
+  %% docstring: the program's arguments as ints in a struct, without monads
+%% /wolframConfig[WolframConfig : wolframConfig]
 
-%% %%%%%%%%%%%% pre-print_generation %%%%%%%%%%%%
+subgraph pre-print_generation %%%%%%%%%%%%%%% pre-print_generation
 
-WolframConfig --> showWolfram
+subgraph Generation0[WolframGen : Generation0]
+  cellRange[List Bool : cellRange]
+  genSize[Int : genSize]
+  genOffset[Int : genOffset]
+end %% /Generation0
+  %% deps: wolframConfig
+  %% trans:
+  wolframConfig -->
+    generateFirstGen{generateFirstGen :: WolframConfig -> WolframGen}
+    --> Generation0
+  %% brief: the first generation
+  %% docstring: the first generation based on the input parameters
+%% /Generation0[WolframGen : Generation0]
 
-subgraph core_exec
-  generation0[List Char generation0]
-  generationUnShown[List Char generationUnShown]
-  subgraph LineInfo
-    Rule[Rule :: Int]
-    Lines[Lines :: Int]
-    Window[Window :: Int]
-    Move[Move :: Int]
-  end
 
-  startGen[startGen :: Int -> List Char]
-  LineInfo --> startGen
+subgraph GenerationWindowTop[WolframGen : GenerationWindowTop]
+  cellRange[List Bool : cellRange]
+  genSize[Int : genSize]
+  genOffset[Int : genOffset]
+end %% /GenerationWindowTop
+  %% deps: wolframConfig, Generation0
+  %% trans:
+  Generation0 --> skipGen{skipGen :: startGen -> WolframConfig -> WolframGen}
+    --> GenerationWindowTop
+  wolframConfig --> skipGen
+  %% brief: the first generation to be printed
+  %% docstring: the first generation to be printed after skipping the ignored
+  %% by display lines (the --start flag)
+%% /GenerationWindowTop[WolframGen : GenerationWindowTop]
 
-  showWolfram{showWolfram :: config -> IO}
-  showWolfram --> startGen
-  showWolfram --> LineInfo
+end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% /pre-print_generation
 
-  generateFirstGen{generateFirstGen :: lineInfo -> List Char}
-  LineInfo --> generateFirstGen --> generation0
+subgraph printed-generations %%%%%%%%%%%%%%%% printed-generations
 
-  skipGen{skipGen :: startGen -> lineInfo}
-  startGen --> skipGen
-  LineInfo --> skipGen
-  generation0 --> skipGen
-  skipGen --> generationUnShown
-  generationUnShown --> skipGen
+IOgens[IO : IOgens]
+  %% deps: wolframConfig, GenerationWindowTop
+  %% trans:
+  GenerationWindowTop
+    --> printGen{printGen :: WolframGen -> WolframConfig -> IO}
+    --> IOgens
+  wolframConfig --> printGen
+  %% brief: the program's return value
+  %% docstring: the return value after wolfram was printed
+%% /IOgens[WolframGen : IOgens]
 
-end
-
-%% %%%%%%%%%%%% print_generation %%%%%%%%%%%%
-
-subgraph printing_gens
-  generationN[List Char generationN]
-  showGen{showGen :: startGen -> lineInfo -> IO}
-  generationUnShown --> showGen
-  LineInfo --> showGen
-  showGen --> generationN
-  generationN --> showGen
-end
+end %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% /printed-generations
