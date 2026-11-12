@@ -1,0 +1,69 @@
+%%
+%% EPITECH PROJECT, 2026
+%% wolframDFD.mermaid
+%% File description:
+%% the program's dfd
+%%
+
+flowchart TD
+
+%% %%%%%%%%%%%% cli parse block %%%%%%%%%%%%
+
+subgraph cli_parse
+  IO --> getOpts{getOpts :: List String} --> args[List String args]
+  args --> getArgs{getArgs -> List String -> WolframConfig}
+end
+
+getArgs --> WolframConfig 
+
+subgraph WolframConfig
+  wlfRule[wlfRule :: Int]
+  wlfStart[wlfStart :: Int]
+  wlfLines[wlfLines :: Int]
+  wlfWindow[wlfWindow :: Int]
+  wlfMove[wlfMove :: Int]
+end
+
+%% %%%%%%%%%%%% pre-print_generation %%%%%%%%%%%%
+
+WolframConfig --> showWolfram
+
+subgraph core_exec
+  generation0[List Char generation0]
+  generationUnShown[List Char generationUnShown]
+  subgraph LineInfo
+    Rule[Rule :: Int]
+    Lines[Lines :: Int]
+    Window[Window :: Int]
+    Move[Move :: Int]
+  end
+
+  startGen[startGen :: Int -> List Char]
+  LineInfo --> startGen
+
+  showWolfram{showWolfram :: config -> IO}
+  showWolfram --> startGen
+  showWolfram --> LineInfo
+
+  generateFirstGen{generateFirstGen :: lineInfo -> List Char}
+  LineInfo --> generateFirstGen --> generation0
+
+  skipGen{skipGen :: startGen -> lineInfo}
+  startGen --> skipGen
+  LineInfo --> skipGen
+  generation0 --> skipGen
+  skipGen --> generationUnShown
+  generationUnShown --> skipGen
+
+end
+
+%% %%%%%%%%%%%% print_generation %%%%%%%%%%%%
+
+subgraph printing_gens
+  generationN[List Char generationN]
+  showGen{showGen :: startGen -> lineInfo -> IO}
+  generationUnShown --> showGen
+  LineInfo --> showGen
+  showGen --> generationN
+  generationN --> showGen
+end
