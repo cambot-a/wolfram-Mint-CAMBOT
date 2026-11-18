@@ -67,7 +67,7 @@ mostlyclean:	# Like 'clean', but refrains from deleting a few files that
 clean: mostlyclean
 
 fclean: clean
-	rm $(BIN)
+	-rm $(BIN)
 
 #             ~~~~~~~~~~~~~~~~~~~~~~~~ binary ~~~~~~~~~~~~~~~~~~~~~~~           
 
