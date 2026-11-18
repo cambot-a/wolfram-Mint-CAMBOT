@@ -25,6 +25,10 @@ source-repository head
 
 library
   exposed-modules:
+      BinToInt
+      GenerateFirstGen
+      GenStep
+      RuleInfo
       ShowWolfram
       WolframConfig
   other-modules:
