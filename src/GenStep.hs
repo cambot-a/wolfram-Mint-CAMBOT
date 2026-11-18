@@ -6,12 +6,13 @@
 -}
 
 module GenStep (
-    calcCellN
+    genStep
 ) where
 
 import WolframConfig
 import RuleInfo
 import BinToInt
+import CalcCell
 
 {-
 ./wolfram --rule N [--start val] [--lines val] [--window val] [--move val]
@@ -31,18 +32,14 @@ import BinToInt
 -}
 -- binToInt
 
-calcCellN :: Bool -> [Bool] -> [Bool] -> Bool -- partial, only call with non-empty list
-calcCellN x1 (x2:x3:_) rule = rule!!((length rule) - (binToInt [x1,x2,x3]) - 1)
-calcCellN x1 [x2] rule = calcCellN x1 [x2,False] rule
-calcCellN x1 [] rule = calcCellN x1 [False,False] rule
-
 ruleStep' :: [Bool] -> [Bool] -> [Bool]
 ruleStep' [] _ = []
-ruleStep' (x:xs) rule = (calcCellN x xs rule):(ruleStep' xs rule)
+ruleStep' (x1:x2:xs) rule = (calcCell x1 x2 xs rule):(ruleStep' (x2:xs) rule)
+ruleStep' (_:_) _ = []
 
 ruleStep :: [Bool] -> [Bool] -> [Bool]
 ruleStep [] _ = []
 ruleStep gen rule = ruleStep' (False:gen) rule
 
-genStep :: WolframConfig -> [Bool] -> [Bool]
-genStep (WolframConfig rule _ _ _ _) generation = ruleStep generation (makeRuleInfo rule)
+genStep :: Int -> [Bool] -> [Bool]
+genStep rule generation = ruleStep generation (makeRuleInfo rule)
