@@ -30,14 +30,6 @@ data WolframConfig = WolframConfig {
   wlfWindow :: Int,
   wlfMove :: Int
 }
--- WolframConfig :: Int -> Int -> Int -> Int -> Int -> WolframConfig
--- WolframConfig rule start lines window move = WolframConfig {
---   wlfRule = rule,
---   wlfStart = start,
---   wlfLines = lines,
---   wlfWindow = window,
---   wlfMove = move
---   }
 
 defaultConf :: DefaultConfig
 defaultConf = DefaultConfig {
