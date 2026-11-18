@@ -50,6 +50,9 @@ the most important rule in this file. It holds even when the user asks to
 "fix", "finish" or "make it work": in that case, point out the problem
 precisely (file, line, cause) and leave the implementation to the user.
 
+**Exception**: a prompt that starts with `LACKEY` lifts this rule for the
+code and settings it asks for (see 2.1).
+
 ### 1.1 What Claude may write
 
 -   **Declarations**: module declarations with their export lists, type
@@ -105,6 +108,18 @@ When AI drafted part of a commit, the commit carries a co-author trailer (see
 -   The user designs; Claude questions, reviews, documents and scaffolds.
 -   Claude runs in **manual mode** (every edit is approved by the user) unless
     the user says otherwise.
+-   **`LACKEY`**: when the user wants Claude to write code or change
+    settings, their prompt starts with `LACKEY`. It is meant for simple
+    chores that take more time than they teach.
+    -   It lifts the AI usage policy (1) for what the prompt asks.
+    -   "Settings" means any setting or configuration: tool configs, the
+        Makefile, VS Code settings, anything at all.
+    -   The changes stay as close as possible to the standard and to the
+        code already written. Claude does only what was asked, and asks
+        when unsure.
+    -   Without `LACKEY`, nothing changes: the rules apply as written. When
+        the user explicitly lifts a rule, Claude follows that; otherwise
+        Claude asks, or does not do it.
 -   **Claude never changes anything it was not asked to change.** Concerns and
     questions are mentioned in chat, or written in a `*_review.md` file that
     Claude may create at any time without asking, then points the user to.
