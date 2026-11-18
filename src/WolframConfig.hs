@@ -6,7 +6,7 @@
 -}
 
 module WolframConfig (
-  WolframConfig(wlfRule, wlfStart, wlfLines, wlfWindow, wlfMove),
+  WolframConfig(..),
   DefaultConfig(confRule, confStart, confLines, confWindow, confMove),
   defaultConf,
   getOpts,
@@ -18,9 +18,9 @@ import Text.Read ( readMaybe )
 data DefaultConfig = DefaultConfig {
   confRule :: Maybe Int,
   confStart :: Int,
-  confLines :: Maybe Int,
+  confLines :: Int,
   confWindow :: Int,
-  confMove :: Maybe Int
+  confMove :: Int
 }
 
 data WolframConfig = WolframConfig {
@@ -30,28 +30,36 @@ data WolframConfig = WolframConfig {
   wlfWindow :: Int,
   wlfMove :: Int
 }
+-- WolframConfig :: Int -> Int -> Int -> Int -> Int -> WolframConfig
+-- WolframConfig rule start lines window move = WolframConfig {
+--   wlfRule = rule,
+--   wlfStart = start,
+--   wlfLines = lines,
+--   wlfWindow = window,
+--   wlfMove = move
+--   }
 
 defaultConf :: DefaultConfig
 defaultConf = DefaultConfig {
   confRule=Nothing,
   confStart=0,
-  confLines=-1,
+  confLines=(-1),
   confWindow=80,
-  confMove=Nothing
+  confMove=0
   }
 
 defaultToFinalConfig :: DefaultConfig -> Maybe WolframConfig
-defaultToFinalConfig (DefaultConfig (Just r) s l w (Just m)) =
+defaultToFinalConfig (DefaultConfig (Just r) s l w m) =
   Just (WolframConfig r s l w m)
 defaultToFinalConfig _ = Nothing
 
 getOptsRec :: DefaultConfig -> [String] -> Maybe WolframConfig
 getOptsRec config [] = defaultToFinalConfig config
 getOptsRec config ("--rule":arg:xs) = getOptsRec (config {confRule=readMaybe arg}) xs
-getOptsRec config ("--start":arg:xs) = readMaybe arg >>= \argval -> getOptsRec (config{confStart=argval}) xs 
-getOptsRec config ("--lines":arg:xs) = getOptsRec (config {confLines=readMaybe arg}) xs 
-getOptsRec config ("--window":arg:xs) = readMaybe arg >>= \argval -> getOptsRec (config{confWindow=argval}) xs 
-getOptsRec config ("--move":arg:xs) = getOptsRec (config {confMove=readMaybe arg}) xs
+getOptsRec config ("--start":arg:xs) = readMaybe arg >>= \argval -> getOptsRec (config{confStart=argval}) xs
+getOptsRec config ("--lines":arg:xs) = readMaybe arg >>= \argval -> getOptsRec (config{confLines=argval}) xs
+getOptsRec config ("--window":arg:xs) = readMaybe arg >>= \argval -> getOptsRec (config{confWindow=argval}) xs
+getOptsRec config ("--move":arg:xs) = readMaybe arg >>= \argval -> getOptsRec (config{confMove=argval}) xs
 getOptsRec _ _ = Nothing
 
 getOpts :: [String] -> Maybe WolframConfig
