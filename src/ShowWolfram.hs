@@ -25,8 +25,8 @@ showUsage = hPutStrLn stderr usage >> exitWith (ExitFailure 84)
 
 makeGens :: WolframConfig -> [String]
 makeGens (WolframConfig _ _ 0 _ _) = []
-makeGens config@(WolframConfig rule start lineCnt _ _) =
-    showGens config{wlfLines = lineCnt - 1}
+makeGens config@(WolframConfig rule start lineCnt _ move) =
+    showGens config{wlfLines=(lineCnt - 1), wlfMove=(move - start)}
         (skipGen start rule (generateFirstGen config))
 
 showWolfram :: Maybe WolframConfig -> IO ()

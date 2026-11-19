@@ -11,7 +11,6 @@ module GenStep (
 
 import WolframConfig
 import RuleInfo
-import BinToInt
 import CalcCell
 
 {-
@@ -34,12 +33,11 @@ import CalcCell
 
 ruleStep' :: [Bool] -> [Bool] -> [Bool]
 ruleStep' [] _ = []
-ruleStep' (x1:x2:xs) rule = (calcCell x1 x2 xs rule):(ruleStep' (x2:xs) rule)
-ruleStep' (_:_) _ = []
+ruleStep' (x:xs) rule = (calcCell x xs rule):(ruleStep' xs rule)
 
 ruleStep :: [Bool] -> [Bool] -> [Bool]
 ruleStep [] _ = []
-ruleStep gen rule = ruleStep' (False:gen) rule
+ruleStep gen rule = ruleStep' (False:False:gen) rule
 
 genStep :: Int -> [Bool] -> [Bool]
 genStep rule generation = ruleStep generation (makeRuleInfo rule)

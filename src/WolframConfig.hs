@@ -42,7 +42,7 @@ defaultConf = DefaultConfig {
 
 defaultToFinalConfig :: DefaultConfig -> Maybe WolframConfig
 defaultToFinalConfig (DefaultConfig (Just r) s l w m) =
-  Just (WolframConfig r s l w m)
+  Just (WolframConfig r s l w (m + (div w 2)))
 defaultToFinalConfig _ = Nothing
 
 getOptsRec :: DefaultConfig -> [String] -> Maybe WolframConfig
