@@ -30,6 +30,7 @@ library
       GenerateFirstGen
       GenStep
       RuleInfo
+      ShowGen
       ShowWolfram
       SkipGen
       WolframConfig
